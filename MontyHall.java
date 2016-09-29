@@ -1,7 +1,7 @@
-**/
+/**
 * Monty Hall Class Problem
 * @author Mitchell Pavlak
-* @author Orndorff AP Comp Sci class
+* @author Orndorff AP Comp Sci Class
 **/
 
 
@@ -23,5 +23,5 @@ public class MontyHall
 
 
 
-	}s
+	}
 }
