@@ -17,20 +17,25 @@ public static Scanner keys = new Scanner(System.in);
 
 	public static void main(String[] args) 
 	{
-	int numOfDoors = 3;
-	int carDoor = (int) ((Math.random() * numOfDoors) + 1); //Random door between one and three
+	int numOfDoors = 3; 
+	//my version should still work even if this is changed as long as numOfDoors >2
+	int carDoor = (int) ((Math.random() * numOfDoors) + 1); 
+	//Random door between one and three
 	int userDoor = getUserDoor(numOfDoors); //gets the door the user is picking
-	
 	int doorToReveal = revealDoor(userDoor, carDoor, numOfDoors);
 	System.out.println("There is a goat behind door number: " + doorToReveal);
-    //Ask whether you want to stop
+    //Ask whether you want to swap
     boolean swap = getUserSwap();
     if (swap == true) 
     {
     	System.out.println("Which door would you like to switch to: ");
-    	int doorToSwapWith = getUserDoor(numOfDoors);
-    }
-	//TODO fix errors
+    	int doorToSwapWith = getDoorSwitch(numOfDoors,userDoor,doorToReveal);
+    	userDoor = doorToSwapWith;
+    } 
+    boolean prize = checkWin(userDoor, carDoor);
+    winScreen(prize,userDoor);
+    
+	
 	//TODO figure out what to do if they swap
 	//TODO tell if they won
 
@@ -39,25 +44,40 @@ public static Scanner keys = new Scanner(System.in);
 	* Method asks the user whether they want to swap their door or not 
 	* @return boolean that says whether the user would like to switch or not
 	**/
-	
-	
 	public static boolean getUserSwap() {
 	System.out.println("Do you want to swap \'yes\' or \'no\'?");
 	String answer = keys.nextLine();
-	if (answer.equals("yes") || answer.equals("no")) {
+	if (answer.equals("yes") || answer.equals("Yes") || answer.equals("YES")) {
 	return true;
 	} else 
 	return false;
 	}
+	/**
+	* Method gets the door the user would like to switch (uses getUserDoor, but handles errors)
+	* @param numOfDoors the number of doors the program is using
+	* @param userDoor the door the user picked (can't switch to the same door)
+	* @param doorToReveal the door that was already revealed as a goat door
+	**/
+	public static int getDoorSwitch(int numOfDoors,int userDoor,int doorToReveal) 
+	{
+		int newDoor = getUserDoor(numOfDoors);
+		while ((newDoor == userDoor)||(newDoor == doorToReveal))
+		{
+			System.out.println("Oops, looks like there was an error. Please enter a valid door.");
+			System.out.println("Doors " +userDoor + " and " + doorToReveal +" are invalid.");
+			newDoor = getUserDoor(numOfDoors);
+		}
+		return newDoor;
+	
+	}
+	
 	
 	/**
-	*	This method is 
-	*
-	*
-	*
+	*This method is used to get the choice of the user regarding door, and checks to make
+	*sure it is a door.
+	* @param numOfDoors takes in how many doors there should be
+	* @return the door choice of the user
 	**/
-	
-	
 	public static int getUserDoor(int numOfDoors) 
 	{
 		System.out.println("Please enter a door from 1-" + numOfDoors + " (i.e. \'1\')" );
@@ -88,7 +108,47 @@ public static Scanner keys = new Scanner(System.in);
 		// I should never reach this line it is just to make the compiler feel better
 		// return -1; I'm getting an error saying unreachable statement so I will assume
 	}
+	/**
+	* Quick method to check win
+	* @param playerDoor the player's door as of the win checking
+	* @param carDoor the door the car is behind
+	* @return boolean did the player win the car
+	**/
+	public static boolean checkWin(int playerDoor,int carDoor)	
+	{
+	boolean prize = false;
+	if (playerDoor == carDoor)
+		prize = true; 
+		
+	return prize;
+	}
+	public static void winScreen(boolean prize, int userDoor)
+	{
+		System.out.println("Now, for the moment we've all been waiting for...");
+		waitWorkAround();
+		System.out.println("DRUM ROLL PLEASE!");
+		waitWorkAround();
+		System.out.println("YOU ARE NOW");
+		waitWorkAround();
+		System.out.println("THE PROUD OWNER OF A NEW");
+		waitWorkAround();
+		System.out.println("2016");
+		waitWorkAround();
+		System.out.println("Insured");
+		waitWorkAround();
+		if (prize == true) 
+		{
+			System.out.println("CAAAARRRRRRRRR!!!!!!!!");
+		} else
+		System.out.println("GOOOOOOOAAAAAAAAATTTTTTTTTTT!!! (Insured against disease)");		
+		}
+	public static void waitWorkAround()
+	{
+	double count = 0;
+	while (count <= 1000000000.0) {
+	count = count + 1;
+	}
 	
-	
+	}
 	
 }
