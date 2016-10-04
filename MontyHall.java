@@ -34,11 +34,6 @@ public static Scanner keys = new Scanner(System.in);
     } 
     boolean prize = checkWin(userDoor, carDoor);
     winScreen(prize,userDoor);
-    
-	
-	//TODO figure out what to do if they swap
-	//TODO tell if they won
-
 	}
 	/**
 	* Method asks the user whether they want to swap their door or not 
@@ -93,6 +88,7 @@ public static Scanner keys = new Scanner(System.in);
 	* This method calculates an acceptable door to return to the user.
 	* @param invalidDoor1 A door that the host cannot open
 	* @param invalidDoor2 Another door that the host cannot open (may be the same as invalidDoor1)
+	* @param numOfDoors the number of doors the program is using (so it can use more doors)
 	* @return The number of a door containing a goat. 
 	**/
 	public static int revealDoor(int invalidDoor1, int invalidDoor2, int numOfDoors) 
@@ -107,6 +103,7 @@ public static Scanner keys = new Scanner(System.in);
 		return validDoor;
 		// I should never reach this line it is just to make the compiler feel better
 		// return -1; I'm getting an error saying unreachable statement so I will assume
+		// that for the way done above the compiler does not have a program
 	}
 	/**
 	* Quick method to check win
@@ -122,9 +119,14 @@ public static Scanner keys = new Scanner(System.in);
 		
 	return prize;
 	}
+	/**
+	* Displays the winscreen to the player to show what they won 
+	* @param prize boolean that is true if the player won the car
+	*
+	**/
 	public static void winScreen(boolean prize, int userDoor)
 	{
-		System.out.println("Now, for the moment we've all been waiting for...");
+		System.out.println("Now, for the moment we've all been waiting for... Finding out what is behind door number "+userDoor+"...");
 		waitWorkAround();
 		System.out.println("DRUM ROLL PLEASE!");
 		waitWorkAround();
